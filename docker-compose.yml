@@ -1,0 +1,18 @@
+version: '3.4'
+services:
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8070:8080
+    environment:
+      KAFKA_CLUSTERS_0_NAME: configurator
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: rc1a-XXXXXXXXXXXXXXX.mdb.yandexcloud.net:9091 # SSL LISTENER!
+      KAFKA_CLUSTERS_0_PROPERTIES_SSL_TRUSTSTORE_LOCATION: /kafka.truststore.jks
+      KAFKA_CLUSTERS_0_PROPERTIES_SSL_TRUSTSTORE_PASSWORD: pass@word1
+      KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: SASL_SSL
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: SCRAM-SHA-512
+      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="kafka-user" password="kafka-password";'
+    volumes:
+      - /Users/andreymaslov/Magnit/MOSDO-728-debezium/kafka-ui/client.truststore.jks:/kafka.truststore.jks
